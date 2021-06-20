@@ -1,9 +1,0 @@
-it/unipi/hadoop/Sort/SortMapper.class
-it/unipi/hadoop/PageRank.class
-it/unipi/hadoop/Sort/DoubleComparator.class
-it/unipi/hadoop/Parse/ParseMapper.class
-it/unipi/hadoop/PageRanking/NodeWritable.class
-it/unipi/hadoop/PageRanking/PageRankReducer.class
-it/unipi/hadoop/Parse/ParseReducer.class
-it/unipi/hadoop/Sort/SortReducer.class
-it/unipi/hadoop/PageRanking/PageRankMapper.class
