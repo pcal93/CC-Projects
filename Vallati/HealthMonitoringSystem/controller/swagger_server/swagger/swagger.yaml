@@ -1,0 +1,202 @@
+---
+swagger: "2.0"
+info:
+  description: "A simple API interface for monitoring and interact with Docker Containers"
+  version: "1.0.0"
+  title: "Docker Containers Monitoring System"
+host: "172.16.3.201:8080"
+basePath: "/"
+tags:
+- name: "containers"
+  description: "Containers collection"
+schemes:
+- "http"
+paths:
+
+  /monitoring:
+    get:
+      tags:
+      - "containers"
+      summary: "Find container list"
+      description: "Returns a list of containers up and running"
+      operationId: "get_containers_list"
+      produces:
+      - "application/xml"
+      - "application/json"
+      parameters: []
+      responses:
+        "200":
+          description: "successful operation"
+        "400":
+          description: "Invalid ID supplied"
+        "404":
+          description: "containers not found"
+      x-swagger-router-controller: "swagger_server.controllers.containers_controller"
+      
+    
+  /monitoring/treshold/{treshold_value}:
+    put:
+      tags:
+      - "containers"
+      summary: "Change treshold of ping response for containers"
+      description: "Change treshold of ping response for containers"
+      operationId: "change_treshold"
+      produces:
+      - "application/xml"
+      - "application/json"
+      parameters:
+      - name: "treshold_value"
+        in: "path"
+        description: "Insert the desired treshold value"
+        required: true
+        minimum: 1
+        maximum: 100
+        type: "integer"
+        format: "int64"
+      responses:
+        "200":
+          description: "New treshold value successfully applied"
+        "400":
+          description: "Invalid treshold value"
+      x-swagger-router-controller: "swagger_server.controllers.containers_controller"
+      
+  /monitoring/{host}:
+    put:
+      tags:
+      - "containers"
+      summary: "Start monitoring all the containers that are running on a given host"
+      description: "This method allow to add all the docker containers in the list of monitored ones."
+      operationId: "monitor_all_containers_on_host"
+      produces:
+      - "application/xml"
+      - "application/json"
+      parameters:
+      - name: "host"
+        in: "path"
+        description: "Insert the host IP value on which the containers are running"
+        required: true
+        type: "string"
+        format: "ascii"
+      responses:
+        "200":
+          description: "All the running containers have successfully been added to the monitoring list"
+        "400":
+          description: "Invalid input values"
+      x-swagger-router-controller: "swagger_server.controllers.containers_controller"
+  
+    
+    delete:
+      tags:
+      - "containers"
+      summary: "Stop monitorizing a container running on a given host"
+      description: "Specify the IP of the host on which you want to stop monitorizing the containers"
+      operationId: "stop_monitorizing_all_containers_on_host"
+      produces:
+      - "application/xml"
+      - "application/json"
+      parameters:
+      - name: "host"
+        in: "path"
+        description: "Insert the host IP value on which the containers are running"
+        required: true
+        type: "string"
+        format: "ascii"
+      responses:
+        "400":
+          description: "Invalid input value"
+        "404":
+          description: "Container not found"
+      x-swagger-router-controller: "swagger_server.controllers.containers_controller"
+  
+  
+      
+  /monitoring/{host}/{containerID}:
+    put:
+      tags:
+      - "containers"
+      summary: "Start monitoring a specific Docker container running on a certain host"
+      description: "This method allow to add a specific docker container in the list of monitored ones."
+      operationId: "set_monitored_container"
+      produces:
+      - "application/xml"
+      - "application/json"
+      parameters:
+      - name: "host"
+        in: "path"
+        description: "Insert the host IP value on which the container is running"
+        required: true
+        type: "string"
+        format: "ascii"
+      - name: "containerID"
+        in: "path"
+        description: "Insert the container ID to be monitored"
+        required: true
+        type: "string"
+        format: "ascii"
+      responses:
+        "200":
+          description: "The specified container has successfully been added to the monitoring list"
+        "400":
+          description: "Invalid input values"
+      x-swagger-router-controller: "swagger_server.controllers.containers_controller"
+  
+    
+    delete:
+      tags:
+      - "containers"
+      summary: "Stop monitorizing a specific Docker container running on a certain host"
+      description: "Specify the IP of the host and the ID of the container that you don't want to monitor anymore"
+      operationId: "stop_monitorizing_container"
+      produces:
+      - "application/xml"
+      - "application/json"
+      parameters:
+      - name: "host"
+        in: "path"
+        description: "Insert the host IP value on which the container is running"
+        required: true
+        type: "string"
+        format: "ascii"
+      - name: "containerID"
+        in: "path"
+        description: "Provide the ID of the container you want to stop from being monitorized"
+        required: true
+        type: "string"
+        format: "ascii"
+      responses:
+        "400":
+          description: "Invalid container ID"
+        "404":
+          description: "Container not found"
+      x-swagger-router-controller: "swagger_server.controllers.containers_controller"
+      
+      
+      
+definitions:
+  Container:
+    type: "object"
+    required:
+    - "id"
+    properties:
+      id:
+        type: "string"
+        example: "5ca88701ef12"
+      name:
+        type: "string"
+        example: "rabbitmq"
+      ip:
+        type: "string"
+        example: "172.17.0.3"
+      active:
+        type: "boolean"
+        example: true
+      host:
+        type: "string"
+        example: "datanode2"
+    xml:
+      name: "Container"
+    example:
+      name: "rabbitmq"
+      id: "5ca88701ef12"
+      ip: "172.17.0.3"
+      host: "datanode2"
