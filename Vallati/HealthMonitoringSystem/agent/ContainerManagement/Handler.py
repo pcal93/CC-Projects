@@ -6,7 +6,7 @@ from datetime import datetime
 
 # Load parameters from Config.ini
 config = configparser.ConfigParser()
-config.read("config.ini")
+config.read("agent/config.ini")
 
 my_ip = config['host']['my_ip']
 treshold = float(config['host']['treshold'])
