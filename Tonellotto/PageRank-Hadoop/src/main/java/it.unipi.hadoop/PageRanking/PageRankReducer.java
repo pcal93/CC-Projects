@@ -20,19 +20,6 @@ public class PageRankReducer extends Reducer<Text, NodeWritable, Text, Text> {
 
         Double alpha = context.getConfiguration().getDouble("alpha",0);
 
-/*
-            System.out.print(key.toString() + ": ");
-            for(NodeWritable aux: values){
-                System.out.print(aux.getPageRank() + " ");
-                if(aux.getOutlinks() != null){
-                    for(String str: aux.getOutlinks()){
-                        System.out.print(str + " ");
-                    }
-                }
-            }
-            System.out.println("\n");
-*/
-
         NodeWritable graphNode = null;
         Double sumPR = 0.0d;
         Double pageRank = 0.0d;
@@ -59,23 +46,6 @@ public class PageRankReducer extends Reducer<Text, NodeWritable, Text, Text> {
 
         out = ">> " + pageRank.toString();
         out += graphStructure;
-
-        // Node that isn't pointed from anyone
-//        if(sumPR == 0.0d){
-//            sumPR = graphNode.getPageRank();
-//        }
-        /*
-        // Se è il graph structure
-        if(graphNode != null){
-            System.out.println(key);
-            System.out.println(graphNode.getPageRank());
-            System.out.println(graphNode.getOutlinks());
-
-            for(String str: graphNode.getOutlinks()){
-                out += "-> " + str;
-            }
-        }
-        */
 
         outputValue.set(out);
         context.write(key, outputValue);

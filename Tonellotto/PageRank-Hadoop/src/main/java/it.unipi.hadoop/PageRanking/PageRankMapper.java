@@ -104,33 +104,5 @@ public class PageRankMapper extends Mapper<LongWritable, Text, Text, NodeWritabl
             reducerKey.set(key);
             context.write(reducerKey, reducerValue);
         }
-
-        /*
-        //code to debug the combiner
-            List<NodeWritable> list = new ArrayList<>();
-            File inputAdjacency = new File("src/main/resources/combiner.txt");
-            FileWriter myWriter = null;
-            try {
-                myWriter = new FileWriter("src/main/resources/combiner.txt");
-            } catch (IOException e) {
-                e.printStackTrace();
-            }
-            for (String key : combiner.keySet()) {
-                String str = key;
-                str += ": ";
-                list = combiner.get(key);
-                for (NodeWritable nw : list) {
-                    str += nw.toString();
-                    str += " ";
-                }
-
-                try {
-                    myWriter.write(str + "\n");
-                } catch (IOException e) {
-                    e.printStackTrace();
-                }
-            }
-            myWriter.close();
-        */
     }
 }
