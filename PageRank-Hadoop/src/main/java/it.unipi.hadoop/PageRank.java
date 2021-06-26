@@ -55,7 +55,7 @@ public class PageRank {
         String path = "rankOutput";
         for(int i = 0; i<maxIteration; i++){
             pageRankCalculator((path + i), (path + (i+1)), alpha, i);
-            System.out.println("Rank stage iteration " + i + " completed.");
+            System.out.println("Rank stage iteration " + (i+1) + " completed.");
         }
 
         //--------------------------- Sort Stage ----------------------------
