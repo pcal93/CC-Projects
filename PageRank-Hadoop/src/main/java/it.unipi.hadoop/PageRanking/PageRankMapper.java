@@ -15,9 +15,9 @@ import java.util.Map;
 public class PageRankMapper extends Mapper<LongWritable, Text, Text, NodeWritable> {
 
     private final Text reducerKey = new Text();
-    private  NodeWritable reducerValue = new NodeWritable();
+    private NodeWritable reducerValue = new NodeWritable();
     private Map<String, List<NodeWritable>> combiner;
-    private long totalPages;
+    private final long totalPages;
 
     @Override
     public void setup(Context context){
