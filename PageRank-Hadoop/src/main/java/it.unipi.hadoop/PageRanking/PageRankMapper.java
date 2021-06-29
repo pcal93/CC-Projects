@@ -17,7 +17,7 @@ public class PageRankMapper extends Mapper<LongWritable, Text, Text, NodeWritabl
     private final Text reducerKey = new Text();
     private NodeWritable reducerValue = new NodeWritable();
     private Map<String, List<NodeWritable>> combiner;
-    private final long totalPages;
+    private long totalPages;
 
     @Override
     public void setup(Context context){

@@ -9,16 +9,18 @@ public class PageRankReducer extends Reducer<Text, NodeWritable, Text, Text> {
 
     private final Text outputValue = new Text();
     private Long totalPages;
+    private Double alpha;
 
     @Override
     public void setup(Context context){
+
         totalPages = context.getConfiguration().getLong("totalPages",0);
+        alpha = context.getConfiguration().getDouble("alpha",0);
+
     }
 
     public void reduce(Text key, Iterable<NodeWritable> values, Context context) throws IOException, InterruptedException {
-        // key: titlePage       iterable of NodeWritable:
-
-        Double alpha = context.getConfiguration().getDouble("alpha",0);
+        // key: titlePage       iterable of NodeWritable
 
         NodeWritable graphNode = null;
         Double sumPR = 0.0d;
