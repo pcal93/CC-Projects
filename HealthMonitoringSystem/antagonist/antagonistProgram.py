@@ -1,41 +1,41 @@
+import time
+import docker
 import subprocess
-import sys
+
 from subprocess import PIPE
+from random import randint
+from random import seed
+
+loss_percentage = '15%'
+
+UNREMOVABLE_CONTAINERS = ["some-rabbit"]
+
+print("Add PAcket Loss")
+
+command = subprocess.run(['tc', 'qdisc', 'add', 'dev', 'docker0', 'root', 'netem', 'loss', loss_percentage], stdout=PIPE, stderr=PIPE)
+
+cmd_str = command.stderr.decode("ascii").strip("\n")
+
+if cmd_str == "RTNETLINK answers: File exists":
+    command = subprocess.run(['tc', 'qdisc', 'change', 'dev', 'docker0', 'root', 'netem', 'loss', loss_percentage], stdout=PIPE, stderr=PIPE)
+    
+while 1:
+    
+    time.sleep(10)
+    
+
+    client = docker.from_env()
+
+    aux = client.containers.list()
+    
+    upper_bound = len(client.containers.list())-1
+
+    value = randint(0, upper_bound)
 
 
-'''RITARDO'''
+    container = aux[value]
 
-'''
-# inserire un ritardo di 200ms
-command = subprocess.run(['tc', 'qdisc', 'add', 'dev', 'docker0', 'root', 'netem', 'delay', '200ms'], stdout=PIPE, stderr=PIPE)
-'''
-'''
-# modificare il valore del ritardo inserito
-command = subprocess.run(['tc', 'qdisc', 'change', 'dev', 'docker0', 'root', 'netem', 'delay', '500ms'], stdout=PIPE, stderr=PIPE)
-'''
-'''
-# rimuovere il ritardo inserito
-command = subprocess.run(['tc', 'qdisc', 'del', 'dev', 'docker0', 'root', 'netem', 'delay', '500ms'], stdout=PIPE, stderr=PIPE)
-'''
-
-
-
-'''PERDITA DI PACCHETTI'''
-
-'''
-# inserire una packet_loss del 15%
-command = subprocess.run(['tc', 'qdisc', 'add', 'dev', 'docker0', 'root', 'netem', 'loss', '15%'], stdout=PIPE, stderr=PIPE)
-'''
-'''
-# modificare il valore della packet_loss inserita
-command = subprocess.run(['tc', 'qdisc', 'change', 'dev', 'docker0', 'root', 'netem', 'loss', '15%'], stdout=PIPE, stderr=PIPE)
-'''
-'''
-# rimuovere la packet_loss inserita
-command = subprocess.run(['tc', 'qdisc', 'del', 'dev', 'docker0', 'root', 'netem', 'loss', '15%'], stdout=PIPE, stderr=PIPE)
-'''
-
-
-sys.stdout.buffer.write(command.stdout)
-sys.stderr.buffer.write(command.stderr)
-sys.exit(command.returncode)
+    if container.name not in UNREMOVABLE_CONTAINERS:
+        print(container.name) 
+        container.stop()
+        container.remove()
