@@ -7,4 +7,4 @@ docker run -d dummy
 docker run -d dummy
 
 
-python3 agent/main.py
+python3 antagonist/antagonistProgram.py | python3 agent/main.py
