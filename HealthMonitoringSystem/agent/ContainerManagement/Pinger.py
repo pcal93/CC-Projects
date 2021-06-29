@@ -10,6 +10,8 @@ def ping_containers():
 
     while True:
 
+        time.sleep(10)
+        
         if not Handler.monitorized_containers:
             time.sleep(2)
             continue
