@@ -1,15 +1,12 @@
 import time
 import docker
 import subprocess
-import random
 
 from subprocess import PIPE
 from random import randint
-from random import seed
-
 
 def rollDice():
-    roll = random.randint(1,100)
+    roll = randint(1,100)
 
     if roll <= 50:
         return False
@@ -34,21 +31,23 @@ while 1:
     
     time.sleep(120)
 
-    if rollDice():
-      client = docker.from_env()
-
-      aux = client.containers.list()
-    
-      upper_bound = len(client.containers.list())-1
-
-      if upper_bound < 0:
+    if not rollDice():
         continue
-      
-      value = randint(0, upper_bound)
-    
-      container = aux[value]
+        
+    client = docker.from_env()
 
-      if container.name not in UNREMOVABLE_CONTAINERS:
-          print("[X] Antagonist program has just shutted down the container: "+container.name) 
-          container.stop()
-          container.remove()
+    aux = client.containers.list()
+    
+    upper_bound = len(client.containers.list())-1
+
+    if upper_bound < 0:
+      continue
+      
+    value = randint(0, upper_bound)
+    
+    container = aux[value]
+
+    if container.name not in UNREMOVABLE_CONTAINERS:
+        print("[X] Antagonist program has just shutted down the container: "+container.name) 
+        container.stop()
+        container.remove()
