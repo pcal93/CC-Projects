@@ -8,9 +8,9 @@ from random import randint
 def rollDice():
     roll = randint(1,100)
 
-    if roll <= 50:
+    if roll <= 20:
         return False
-    elif roll >= 51:
+    else:
         return True
         
 
@@ -29,7 +29,7 @@ if cmd_str == "RTNETLINK answers: File exists":
     
 while 1:
     
-    time.sleep(120)
+    time.sleep(20)
 
     if not rollDice():
         continue

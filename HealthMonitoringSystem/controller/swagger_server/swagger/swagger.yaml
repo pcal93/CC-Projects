@@ -88,7 +88,7 @@ paths:
     delete:
       tags:
       - "containers"
-      summary: "Stop monitorizing a container running on a given host"
+      summary: "Stop monitorizing all containers running on a given host"
       description: "Specify the IP of the host on which you want to stop monitorizing the containers"
       operationId: "stop_monitorizing_all_containers_on_host"
       produces:

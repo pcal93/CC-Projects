@@ -29,20 +29,23 @@ def kill_and_restart_container(target_container):
 
     container = ""
 
+    name_cont = target_container.get("name")
+    image = target_container.get("image")
+
     client = docker.from_env()
+
     try:
         container = client.containers.get(target_container.get("id"))
     except:
-        print("[X] Error: the Container with ID: " + target_container.get("id") + " does not exist anymore!")
-        return
+        container = client.containers.run(image, name=name_cont, detach=True)
+        with lock:
+            monitorized_containers = [i for i in monitorized_containers if not (i["id"] == target_container.get("id"))]
 
-    if container.status == "exited":
-        print("[X] Error: the Container with ID: " + target_container.get("id") + " does not exist anymore!")
-        stop_monitorizing_container(target_container.get("id"))
-        return
+        print("[V] Container restarted with new ID: " + container.short_id)
 
-    name_cont = target_container.get("name")
-    image = target_container.get("image")
+        # Start monitoring the restarted container
+        add_to_monitorized(container.short_id)
+        return
 
     container.stop()
     container.remove()

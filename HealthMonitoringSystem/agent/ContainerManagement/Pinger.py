@@ -10,9 +10,10 @@ def ping_containers():
 
     while True:
 
-        time.sleep(10)
+        time.sleep(5)
         
         if not Handler.monitorized_containers:
+            print("[X] Ping is not possible the Monitorized List is empty")
             time.sleep(2)
             continue
 
@@ -23,7 +24,7 @@ def ping_containers():
             result = transmitter.ping()
             result_dict = ping_parser.parse(result).as_dict()
 
-            if result_dict.get('packet_loss_rate') >= Handler.treshold:
+            if result_dict.get('packet_loss_rate') is None or result_dict.get('packet_loss_rate') >= Handler.treshold:
                 print("[X] Ping NOT GOOD (" +
                       str(result_dict.get('packet_loss_rate')) +
                       "% PL) - deleting and restarting container " +
