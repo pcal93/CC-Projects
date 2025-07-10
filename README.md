@@ -36,9 +36,6 @@ This part of the project focuses on computing PageRank for large-scale graphs us
 - **Java MapReduce**:
   - Traditional low-level implementation using the Hadoop Java API.
   - Mapper and Reducer classes process input splits from HDFS and compute rank updates iteratively.
-- **Python MapReduce**:
-  - Implements Map and Reduce logic using the Hadoop Streaming API.
-  - Easier prototyping but less optimized than Java.
 
 #### ⚡ Spark Implementations
 - **PySpark (Python)**:
@@ -52,7 +49,7 @@ This part of the project focuses on computing PageRank for large-scale graphs us
 - **Apache Hadoop** – For distributed storage (HDFS) and MapReduce job execution.
 - **Apache Spark** – For in-memory, distributed computation.
 - **Java** – High-performance, compiled implementation.
-- **Python** – Rapid development with PySpark and Hadoop Streaming.
+- **Python** – Rapid development with PySpark Streaming.
 
 #### 🎯 Why It Matters
 - Demonstrates **distributed computing** with two of the most important big data frameworks.
