@@ -1,90 +1,82 @@
+# ☁️ Cloud Computing Project – University of Pisa
+
+## 🚀 Overview
+
+Welcome to the **Cloud Computing Project**, developed for the *Cloud Computing* course at the University of Pisa. This repository includes two main components focusing on scalable container management and big data processing using distributed computing.
+
+- 🐳 **Docker Resource Monitoring System** – A Python-based tool for real-time container monitoring and automated fault recovery in Docker environments.
+- 📊 **PageRank Algorithm** – Implemented using **both Apache Hadoop MapReduce** and **Apache Spark**, in **Java** and **Python** versions.
 
 ---
 
-# ☁️ **Cloud Computing Project** – University of Pisa
+## 🛠️ Project Breakdown
 
-## 🚀 **Overview**
+### 1️⃣ Docker Resource Monitoring System (Python)
 
-Welcome to the **Cloud Computing Project**! Developed for the **Cloud Computing** course at the **University of Pisa**, this project is composed of **two major parts** that explore cutting-edge technologies in **container management** and **distributed computing**.
+This system monitors Docker containers' resource usage and automatically handles failures or resource violations.
 
-1. **Docker Resource Monitoring System**: A Python-based system that automatically monitors Docker containers, ensuring efficient resource allocation and fault recovery.
-2. **PageRank Algorithm Using MapReduce & Hadoop**: A full implementation in **Python** and **Java** of the PageRank algorithm using the **MapReduce** paradigm on **Hadoop**.
+#### 🔧 Key Features
+- **Agent Module** – Monitors container metrics on each host.
+- **Controller Module** – RESTful API for managing thresholds and configurations.
+- **Antagonist Module** – Simulates faults (e.g., crashes, packet loss) to test recovery mechanisms.
 
----
+#### 🧰 Tech Stack
+- Python, Flask, RabbitMQ, Docker
 
-## 🛠️ **Project Breakdown**
-
-### **1. Docker Resource Monitoring System** (Python Implementation)
-
-In large-scale cloud environments, ensuring container stability and performance is key. The **Docker Resource Monitoring System** tracks resources (CPU, memory, disk, network) in real-time and automatically handles container failures by restarting them when thresholds are exceeded.
-
-#### **Key Features:**
-
-* **Agent Module**: Runs on each host to monitor container health and restart containers if needed.
-* **Controller Module**: Exposes container control functionalities via a **REST API**, enabling system administrators to manage container thresholds, enable/disable monitoring, and more.
-* **Antagonist Module**: Introduces random faults (container crashes, packet loss) to simulate real-world conditions for testing purposes.
-
-#### **Why It Matters:**
-
-* **Automated Monitoring**: Provides real-time insights into the health of containers, making it easier to manage large-scale cloud deployments.
-* **Scalability**: The system is designed to automatically scale, monitoring many containers without manual intervention, while maintaining high performance and reliability.
-
-#### **Technology Stack**:
-
-* **Python**: For building the core monitoring and fault recovery logic.
-* **RabbitMQ**: Used for messaging between the agent and controller modules.
-* **Flask**: Exposes the **REST API** for container management.
+#### 🎯 Why It Matters
+- Enables **autonomous** and **scalable** container health management in distributed cloud environments.
 
 ---
 
-### **2. PageRank Algorithm Using MapReduce & Hadoop** (Python & Java Implementation)
+### 2️⃣ PageRank Algorithm – Distributed Implementations
 
-The **PageRank** algorithm is essential for ranking nodes in a web graph, like how search engines rank pages. This part of the project implements **PageRank** in two parts: one entirely in **Python** and the other in **Java**. Both versions use the **MapReduce** framework on **Hadoop** to process large datasets efficiently.
+This part of the project focuses on computing PageRank for large-scale graphs using distributed systems. The algorithm is implemented in both **Apache Hadoop MapReduce** and **Apache Spark**, with **Java** and **Python** implementations for each.
 
-#### **Key Features:**
+#### 📌 Hadoop MapReduce Implementations
+- **Java MapReduce**:
+  - Traditional low-level implementation using the Hadoop Java API.
+  - Mapper and Reducer classes process input splits from HDFS and compute rank updates iteratively.
+- **Python MapReduce**:
+  - Implements Map and Reduce logic using the Hadoop Streaming API.
+  - Easier prototyping but less optimized than Java.
 
-* **MapReduce**: The algorithm is broken down into **Map** and **Reduce** phases, allowing for distributed computation across a cluster of machines.
-* **Hadoop Integration**: **Hadoop Distributed File System (HDFS)** is used to store and process large-scale graph data.
-* **Iterative Process**: **PageRank** requires multiple iterations. Both implementations ensure efficient convergence of page ranks based on graph structure.
+#### ⚡ Spark Implementations
+- **PySpark (Python)**:
+  - Utilizes Spark RDD transformations to implement the iterative PageRank algorithm.
+  - Fast development and in-memory computation for efficiency.
+- **Spark Java API**:
+  - Uses Spark’s Java API for building a parallel and type-safe PageRank application.
+  - Ideal for integration with JVM-based systems.
 
-#### **Python Implementation:**
+#### 🧰 Tech Stack
+- **Apache Hadoop** – For distributed storage (HDFS) and MapReduce job execution.
+- **Apache Spark** – For in-memory, distributed computation.
+- **Java** – High-performance, compiled implementation.
+- **Python** – Rapid development with PySpark and Hadoop Streaming.
 
-* **MapReduce in Python**: Python is used for orchestrating the MapReduce jobs. It prepares data, submits it to Hadoop, and processes the results.
-* **Efficient Parallelism**: Python manages distributed tasks and handles the data flow between Map and Reduce stages.
-
-#### **Java Implementation:**
-
-* **MapReduce in Java**: The Java implementation focuses on the **Map** and **Reduce** phases of PageRank. The Mapper processes input data, and the Reducer computes the ranks for each node based on the graph structure.
-* **Hadoop's Power**: Java works seamlessly with Hadoop, leveraging its native libraries for distributed processing, fault tolerance, and scalability.
-
-#### **Why It Matters:**
-
-* **Big Data Handling**: The ability to compute PageRank for large datasets using distributed computing makes this project a strong demonstration of Hadoop's power for **big data** processing.
-* **Scalable & Fault-Tolerant**: The use of Hadoop ensures that the system scales easily and can recover from node failures during computation.
-
-#### **Technology Stack**:
-
-* **Python**: For managing the MapReduce jobs and orchestrating the workflow.
-* **Java**: For implementing the core MapReduce logic, including the Mapper and Reducer classes.
-* **Hadoop**: For managing distributed data processing and storage.
-
-
----
-
-## 💡 **Authors**
-
-This project was developed by a talented team of students from the **University of Pisa**:
-
-* **Tommaso Amarante**
-* **Pietro Calabrese**
-* **Francesco Marabotto**
-* **Edoardo Morucci**
-* **Enrico Nello**
+#### 🎯 Why It Matters
+- Demonstrates **distributed computing** with two of the most important big data frameworks.
+- Provides a comparative perspective of performance, complexity, and scalability across:
+  - **Hadoop vs Spark**
+  - **Java vs Python**
 
 ---
 
-## 📜 **License**
+## 👨‍💻 Authors
 
-This project is licensed under the **MIT License** – see the [LICENSE](LICENSE) file for details.
+This project was developed by students of the *University of Pisa*:
+
+- **Tommaso Amarante**
+- **Pietro Calabrese**
+- **Francesco Marabotto**
+- **Edoardo Morucci**
+- **Enrico Nello**
+
+---
+
+## 📜 License
+
+This project is licensed under the **MIT License**.  
+See the [LICENSE](./LICENSE) file for details.
 
 ---
